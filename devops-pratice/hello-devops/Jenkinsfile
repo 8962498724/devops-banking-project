@@ -8,6 +8,37 @@ pipeline {
     }
 
     stages {
+        stage('Check Tools') {
+            steps {
+                sh 'java -version'
+                sh 'mvn -version'
+                sh 'docker --version'
+            }
+        }
+
+        stage('Build Java App') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t hello-devops:latest .'
+            }
+        }
+    }
+}
+
+pipeline {
+    agent any
+
+    environment {
+        JAVA_HOME = '/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home'
+        PATH = "/opt/homebrew/opt/openjdk@17/bin:/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
+    }
+
+    stages {
         stage('Checkout') {
             steps {
                 echo 'Code is checked out from GitHub by Jenkins'
