@@ -16,7 +16,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="IN"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/microsoft-11.jdk/Contents/Home/lib"/>
-    <property name="sun.java.command" value="/Users/piya/devops-pratice/hello-devops/target/surefire/surefirebooter-20261026120833434_3.jar /Users/piya/devops-pratice/hello-devops/target/surefire 2026-10-26T12-08-32_147-jvmRun1 surefire-20261026120833434_1tmp surefire_0-20261026120833434_2tmp"/>
+    <property name="sun.java.command" value="/Users/piya/devops-pratice/hello-devops/target/surefire/surefirebooter-20261026152636105_3.jar /Users/piya/devops-pratice/hello-devops/target/surefire 2026-10-26T15-26-36_048-jvmRun1 surefire-20261026152636105_1tmp surefire_0-20261026152636105_2tmp"/>
     <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/Users/piya/devops-pratice/hello-devops/target/test-classes:/Users/piya/devops-pratice/hello-devops/target/classes:/Users/piya/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar:/Users/piya/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"/>
@@ -33,7 +33,7 @@
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.awt.graphicsenv" value="sun.awt.CGraphicsEnvironment"/>
-    <property name="surefire.real.class.path" value="/Users/piya/devops-pratice/hello-devops/target/surefire/surefirebooter-20261026120833434_3.jar"/>
+    <property name="surefire.real.class.path" value="/Users/piya/devops-pratice/hello-devops/target/surefire/surefirebooter-20261026152636105_3.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.runtime.version" value="11.0.16.1+1-LTS"/>
@@ -61,5 +61,5 @@
     <property name="java.class.version" value="55.0"/>
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
   </properties>
-  <testcase name="testApp" classname="com.practice.AppTest" time="0.007"/>
+  <testcase name="testApp" classname="com.practice.AppTest" time="0.006"/>
 </testsuite>
