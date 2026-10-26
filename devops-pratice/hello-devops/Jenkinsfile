@@ -30,6 +30,20 @@ pipeline {
                     sh 'docker build -t hello-devops:latest -f "$WORKSPACE/Dockerfile" "$WORKSPACE"'
                 }
             }
+
+        }
+
+
+        stage('Test Docker Container') {
+            steps {
+                dir('devops-pratice/hello-devops') {
+                    sh '''
+                        OUTPUT=$(docker run --rm hello-devops:latest)
+                        echo "Application output: $OUTPUT"
+                        test "$OUTPUT" = "Hello World!"
+                    '''
+                }
+            }
         }
     }
 }
