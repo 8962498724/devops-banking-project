@@ -27,7 +27,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 dir('devops-pratice/hello-devops') {
-                    sh 'docker build -t hello-devops:latest -f "$WORKSPACE/Dockerfile" "$WORKSPACE"'
+                    sh 'docker build --no cache -t hello-devops:latest .'
                 }
             }
 
