@@ -65,7 +65,32 @@ pipeline {
                     '''
                 }
             }
+ 
+       }
+
+
+
+        stage('Build Web Image') {
+            steps {
+                sh 'docker build -t hello-devops-web:latest .'
+            }
         }
+
+        stage('Deploy Web App') {
+            steps {
+                sh '''
+                    docker rm -f hello-devops-web || true
+                    docker run -d \
+                        --name hello-devops-web \
+                        --restart unless-stopped \
+                        -p 8081:80 \
+                        hello-devops-web:latest
+                '''
+            }
+        }
+
+
+
     }
 }
 
