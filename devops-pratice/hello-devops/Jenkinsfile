@@ -45,6 +45,53 @@ pipeline {
                 }
             }
         }
+
     }
+
+stage('Push Docker Image') {
+    steps {
+        dir('devops-pratice/hello-devops') {
+            withCredentials([usernamePassword(
+                credentialsId: 'dockerhub-creds',
+                usernameVariable: 'DOCKERHUB_USER',
+                passwordVariable: 'DOCKERHUB_TOKEN'
+            )]) {
+                sh '''
+                    echo "$DOCKERHUB_TOKEN" | docker login \
+                        -u "$DOCKERHUB_USER" --password-stdin
+
+                    docker tag hello-devops:latest \
+                        "$DOCKERHUB_USER/hello-devops:latest"
+
+                    docker push "$DOCKERHUB_USER/hello-devops:latest"
+
+                    docker logout
+                '''
+            }
+        }
+    }
+stage('Push Docker Image') {
+    steps {
+        dir('devops-pratice/hello-devops') {
+            withCredentials([usernamePassword(
+                credentialsId: 'dockerhub-creds',
+                usernameVariable: 'DOCKERHUB_USER',
+                passwordVariable: 'DOCKERHUB_TOKEN'
+            )]) {
+                sh '''
+                    echo "$DOCKERHUB_TOKEN" | docker login \
+                        -u "$DOCKERHUB_USER" --password-stdin
+
+                    docker tag hello-devops:latest \
+                        "$DOCKERHUB_USER/hello-devops:latest"
+
+                    docker push "$DOCKERHUB_USER/hello-devops:latest"
+
+                    docker logout
+                '''
+            }
+        }
+    }
+}
 }
 
