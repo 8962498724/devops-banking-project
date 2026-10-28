@@ -5,7 +5,6 @@ pipeline {
     environment {
         JAVA_HOME = '/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home'
         PATH = "/Users/piya/.docker/bin:/usr/local/bin:/opt/homebrew/bin:/opt/homebrew/opt/openjdk@17/bin:/opt/homebrew/sbin:$PATH"
-
     }
 
     stages {
@@ -25,7 +24,7 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Build Java Docker Image') {
             steps {
                 dir('devops-pratice/hello-devops') {
                     sh 'docker build --no-cache -t hello-devops:latest .'
@@ -33,19 +32,17 @@ pipeline {
             }
         }
 
-        stage('Test Docker Container') {
+        stage('Test Java Container') {
             steps {
-                dir('devops-pratice/hello-devops') {
-                    sh '''
-                        OUTPUT=$(docker run --rm hello-devops:latest)
-                        echo "Application output: $OUTPUT"
-                        test "$OUTPUT" = "Hello World!"
-                    '''
-                }
+                sh '''
+                    OUTPUT=$(docker run --rm hello-devops:latest)
+                    echo "Application output: $OUTPUT"
+                    test "$OUTPUT" = "Hello World!"
+                '''
             }
         }
 
-        stage('Push Docker Image') {
+        stage('Push Java Image to Docker Hub') {
             steps {
                 withCredentials([usernamePassword(
                     credentialsId: 'dockerhub-creds',
@@ -53,26 +50,21 @@ pipeline {
                     passwordVariable: 'DOCKERHUB_TOKEN'
                 )]) {
                     sh '''
+                        set -e
                         echo "$DOCKERHUB_TOKEN" | docker login \
                             -u "$DOCKERHUB_USER" --password-stdin
-
                         docker tag hello-devops:latest \
                             "$DOCKERHUB_USER/hello-devops:latest"
-
                         docker push "$DOCKERHUB_USER/hello-devops:latest"
-
                         docker logout
                     '''
                 }
             }
- 
-       }
-
-
+        }
 
         stage('Build Web Image') {
             steps {
-                sh 'docker build -t hello-devops-web:latest .'
+                sh 'docker build --no-cache -t hello-devops-web:latest .'
             }
         }
 
@@ -89,8 +81,21 @@ pipeline {
             }
         }
 
-
-
+        stage('Verify Web App') {
+            steps {
+                sh '''
+                    for i in 1 2 3 4 5; do
+                        if curl -fsS http://localhost:8081/; then
+                            echo "Web app is accessible"
+                            exit 0
+                        fi
+                        sleep 2
+                    done
+                    echo "Web app verification failed"
+                    exit 1
+                '''
+            }
+        }
     }
 }
 
