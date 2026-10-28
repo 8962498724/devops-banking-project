@@ -4,7 +4,8 @@ pipeline {
 
     environment {
         JAVA_HOME = '/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home'
-        PATH = "/opt/homebrew/opt/openjdk@17/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:$PATH"
+        PATH = "/Users/piya/.docker/bin:/usr/local/bin:/opt/homebrew/bin:/opt/homebrew/opt/openjdk@17/bin:/opt/homebrew/sbin:$PATH"
+
     }
 
     stages {
